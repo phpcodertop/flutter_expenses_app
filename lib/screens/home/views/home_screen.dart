@@ -4,8 +4,23 @@ import 'package:expenses_app/screens/home/views/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../stats/views/stats_screen.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  List<Widget> pagesList = [
+    MainScreen(),
+    StatsScreen()
+  ];
+
+  int selectedScreenIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +33,14 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
           elevation: 3,
+          onTap: (value) {
+            setState(() {
+              selectedScreenIndex = value;
+            });
+          },
+          currentIndex: selectedScreenIndex,
           items: [
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.home),
@@ -52,7 +74,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: MainScreen(),
+      body: pagesList[selectedScreenIndex],
     );
   }
 }

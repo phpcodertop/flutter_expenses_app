@@ -284,6 +284,7 @@ class MainScreen extends StatelessWidget {
                           ],
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
                               transactionsData[index]['totalAmount'],
